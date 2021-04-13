@@ -1,4 +1,5 @@
-const router = require('express').Router()
+const router = require('express').Router();
+const Accounts = require('./accounts-model');
 
 router.get('/', (req, res, next) => {
   // DO YOUR MAGIC
