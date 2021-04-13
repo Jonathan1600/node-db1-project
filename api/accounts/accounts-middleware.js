@@ -3,7 +3,7 @@ const Accounts = require('./accounts-model');
 exports.checkAccountPayload = (req, res, next) => {
   // DO YOUR MAGIC
   const body = req.body;
-  if (!body.name || !body.budget) {
+  if (!body.name || !body.budget && body.budget !== 0) {
     res.status(400).json({ message: "name and budget are required" })
   } else if (typeof body.name !== "string") {
     res.status(400).json({ message: "name of account must be a string" })
@@ -22,11 +22,12 @@ exports.checkAccountPayload = (req, res, next) => {
 exports.checkAccountNameUnique = async (req, res, next) => {
   // DO YOUR MAGIC
   const name = req.body.name;
+  const { id } = req.params
   const accounts = await Accounts.getAll();
   let nameTaken = false;
 
   accounts.forEach(element => {
-    if (element.name == name.trim()) {
+    if (element.name == name.trim() && element.id != id) {
       nameTaken = true;
     }
   });

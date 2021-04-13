@@ -7,7 +7,7 @@ const getAll = () => {
 
 const getById = id => {
   // DO YOUR MAGIC
-  return db("accounts").where("id", id).first()
+  return db("accounts").where("id", id)
 }
 
 const create = async (account) => {
@@ -24,8 +24,9 @@ const updateById = async (id, account) => {
 
 const deleteById = async id => {
   // DO YOUR MAGIC
-  const deletedAccount = await getById(id);
-  await db("account").where("id", id).delete();
+  const correctId = parseInt(id, 10);
+  const deletedAccount = await getById(correctId);
+  await db("accounts").where("id", id).delete();
   return deletedAccount;
 }
 
